@@ -62,6 +62,7 @@ class Board {
         this.rows = 32;
         this.tiles = [];
         document.addEventListener("click", this.handleClick.bind(this));
+        document.addEventListener("keydown", this.handleKeyDown.bind(this));
         this.currentTileIndex;
     }
 
@@ -154,6 +155,94 @@ class Board {
                 }
             }
         }
+    }
+
+    handleKeyDown(event){
+        //The 4 accepted keyz are left, right, up, down. 
+        let newTile;
+        if(!gameOver) {
+            if(event.key === "Right" || event.key === "ArrowRight"){
+                //if we can, we move to the right.
+                if(this.currentTileIndex%32 != 31){
+                    newTile = this.currentTileIndex + 1;
+                    this.tiles[newTile].tileClick();
+                    this.currentTileIndex = newTile;
+                    this.tiles.forEach(tile => tile.on = false);
+                    this.tiles[newTile].on = true;
+    
+                    //Here, we will check if the tile we clicked is on the path we created. If it is NOT, we will add to our error Counter and increase the penalty for next time.
+                    if(!this.tiles[newTile].onPath){
+                        errorCounter += errorPenalty;
+                        errorPenalty *= 3;
+                    }
+                    //If we click on a tile that is on the path, we don't add any error points, and we revert the error penalty to 1. 
+                    else {
+                        errorPenalty = 1;
+                    }
+                }
+            }
+            else if (event.key === "Left" || event.key === "ArrowLeft"){
+                //if we can, we move to the left.
+                if(this.currentTileIndex%32 != 0){
+                    newTile = this.currentTileIndex - 1;
+                    this.tiles[newTile].tileClick();
+                    this.currentTileIndex = newTile;
+                    this.tiles.forEach(tile => tile.on = false);
+                    this.tiles[newTile].on = true;
+    
+                    //Here, we will check if the tile we clicked is on the path we created. If it is NOT, we will add to our error Counter and increase the penalty for next time.
+                    if(!this.tiles[newTile].onPath){
+                        errorCounter += errorPenalty;
+                        errorPenalty *= 3;
+                    }
+                    //If we click on a tile that is on the path, we don't add any error points, and we revert the error penalty to 1. 
+                    else {
+                        errorPenalty = 1;
+                    }
+                }
+    
+            }
+            else if (event.key === "Up" || event.key === "ArrowUp"){
+                //if we can, we move up.
+                if(this.currentTileIndex > 31) {
+                    newTile = this.currentTileIndex - 32;
+                    this.tiles[newTile].tileClick();
+                    this.currentTileIndex = newTile;
+                    this.tiles.forEach(tile => tile.on = false);
+                    this.tiles[newTile].on = true;
+    
+                    //Here, we will check if the tile we clicked is on the path we created. If it is NOT, we will add to our error Counter and increase the penalty for next time.
+                    if(!this.tiles[newTile].onPath){
+                        errorCounter += errorPenalty;
+                        errorPenalty *= 3;
+                    }
+                    //If we click on a tile that is on the path, we don't add any error points, and we revert the error penalty to 1. 
+                    else {
+                        errorPenalty = 1;
+                    }
+                }
+    
+            }
+            else if (event.key === "Down" || event.key === "ArrowDown"){
+                //we can always move down.
+                newTile = this.currentTileIndex + 32;
+                this.tiles[newTile].tileClick();
+                this.currentTileIndex = newTile;
+                this.tiles.forEach(tile => tile.on = false);
+                this.tiles[newTile].on = true;
+    
+                //Here, we will check if the tile we clicked is on the path we created. If it is NOT, we will add to our error Counter and increase the penalty for next time.
+                if(!this.tiles[newTile].onPath){
+                    errorCounter += errorPenalty;
+                    errorPenalty *= 3;
+                }
+                //If we click on a tile that is on the path, we don't add any error points, and we revert the error penalty to 1. 
+                else {
+                    errorPenalty = 1;
+                }
+            }
+        }
+        
     }
     
 }
