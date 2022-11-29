@@ -1,8 +1,8 @@
 class Tile {  //start by creating a class for tile. Like a customized variable that will be used later to include tiles on the board 
-    constructor (x, y, onPath, start) {
+    constructor (x, y, onPath, start, lastRow) {
         this.x = x;
         this.y = y;
-        this.lastRow = x > 991
+        this.lastRow = lastRow;
         this.onPath = onPath;
         this.clicked = false;
         this.start = start;
@@ -40,54 +40,28 @@ class Tile {  //start by creating a class for tile. Like a customized variable t
             fill(31); //all unclicked tiles remain grey 
             rect(this.x, this.y, 20, 20);
         }
- //If you click on one of the tiles of the last row and it is a tile on the correct path, the you win will show up 
+        //If you click on one of the tiles of the last row and it is a tile on the correct path, the you win will show up 
         if(this.on && this.onPath && this.lastRow) {
-        fill('rgb(200,0 ,0)');
-        rect(this.x, this.y, 20, 20);
-        textSize(60);
-        fill('rgb(200, 0, 0)');
-        text('YOU WIN :)', 20, 200);
+            fill('rgb(0,200,0)');
+            rect(this.x, this.y, 20, 20);
+            textSize(60);
+            fill('rgb(0, 200, 0)');
+            text('YOU WIN :)', 20, 200);
+            gameOver = true;
         }
+    }
 
-tileClick() 
-    this.clicked = true
-
+    tileClick() {
+        this.clicked = true
     }
 }
-
 
 class Board {
     constructor(){
         this.cols = 32;
         this.rows = 32;
         this.tiles = [];
-        //this.leftKey = 
-        //this.rightKey =
-        //this.upKey = 
-        //this.downKey = 
-        //this.keystate = 
-
         document.addEventListener("click", this.handleClick.bind(this));
-        
-        //document.addEventListener("keydown", function (e) {
-          //  keystate[e.keyCode] = true;
-        //});
-        //document.addEventListener("keyup", function (e) {
-          //  delete keystate[e.keyCode];
-        //});
-        
-       // if (keystate[leftKey]) {
-        //code to be executed when left arrow key is pushed.
-        //}
-        //if (keystate[upKey]) {
-        //code to be executed when up arrow key is pushed.
-        //}
-        //if (keystate[rightKey]) {
-        //code to be executed when right arrow key is pushed.
-        //}
-        //if (keystate[downKey]) {
-        //code to be executed when down arrow key is pushed.
-        //}
         this.currentTileIndex;
     }
 
@@ -131,7 +105,8 @@ class Board {
                 var onPath;
                 if(pathTileIndexes.includes(z)) onPath = true;
                 else onPath = false;
-                var t = new Tile(col*25, row*25, onPath, startTile);
+                var lastRow = z > 991;
+                var t = new Tile(col*25, row*25, onPath, startTile, lastRow);
                 this.tiles.push(t);
                 z += 1;
             }
@@ -146,8 +121,17 @@ class Board {
         })
     }
 
+    checkForLoss(){
+        if(errorCounter > 20){
+            textSize(60);
+            fill('rgb(200, 0, 0)');
+            text('YOU LOSE >:(', 20, 200);
+            gameOver = true;
+        }
+    }
+
     handleClick(event){
-        if (event.x < 800 && event.y < 800){
+        if (!gameOver && event.x < 800 && event.y < 800){
             for(let i = 0; i < this.tiles.length; i++){
                 if(this.tiles[i].x >= (event.x-25) && this.tiles[i].x < (event.x) && this.tiles[i].y >= (event.y-25) && this.tiles[i].y < (event.y)){
                     if((i == this.currentTileIndex - 1 && this.currentTileIndex%32!=0) || (i == this.currentTileIndex + 1 && this.currentTileIndex%32!=31) || i == this.currentTileIndex + 32 || i == this.currentTileIndex -32){
@@ -155,6 +139,16 @@ class Board {
                         this.currentTileIndex = i;
                         this.tiles.forEach(tile => tile.on = false);
                         this.tiles[i].on = true;
+
+                        //Here, we will check if the tile we clicked is on the path we created. If it is NOT, we will add to our error Counter and increase the penalty for next time.
+                        if(!this.tiles[i].onPath){
+                            errorCounter += errorPenalty;
+                            errorPenalty *= 3;
+                        }
+                        //If we click on a tile that is on the path, we don't add any error points, and we revert the error penalty to 1. 
+                        else {
+                            errorPenalty = 1;
+                        }
                         break;
                     }
                 }
@@ -165,6 +159,9 @@ class Board {
 }
 
 var board = new Board();
+var errorCounter = 0;
+var errorPenalty = 1;
+var gameOver = false;
 
 function setup () {
     board.boardSetup();
@@ -173,5 +170,6 @@ function setup () {
 
 function draw() {
     board.drawTiles();
+    board.checkForLoss();
 }
 
