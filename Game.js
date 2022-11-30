@@ -39,7 +39,7 @@ class Tile {  //start by creating a class for tile. Like a customized variable t
         }
                 
         //If you click on one of the tiles of the last row and it is a tile on the correct path, then 'you win' will show up 
-        if(this.on && this.onPath && this.lastRow) {  //you win if you meet 3 conditions: if you are A:on a tile, B: that tile is on the path, and C: the tile is on the last row of the board 
+        else if(this.on && this.onPath && this.lastRow) {  //you win if you meet 3 conditions: if you are A:on a tile, B: that tile is on the path, and C: the tile is on the last row of the board 
             fill('rgb(0,200,0)');
             rect(this.x, this.y, 20, 20);
             textSize(60);
@@ -85,7 +85,7 @@ class Board {
         //We need to make a list of indexes, such that each tile at those indexes are "on the path"
         let pathTileIndex = start;  //the starting block is always in the path, so the first pathTileIndex is set equal to start 
         let pathTileIndexes = []; //this is the array of tiles that will consist of all of the correct tiles in the path.
-        pathTileIndexes.push(x);  
+        pathTileIndexes.push(pathTileIndex);  
 
         //the stuff that happens in the below lines calculates some random tiles that touch each other and go to the last row. 
         //The .push pushes these tiles into the array above. 
