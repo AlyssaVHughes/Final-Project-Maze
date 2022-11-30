@@ -64,7 +64,6 @@ class Board {
         this.cols = 32;  // set 32 squares to be in each row and column
         this.rows = 32;
         this.tiles = [];  //this is the array of tiles. It will be 32x32 = 1024 in length, after it is filled up in createTiles().
-        document.addEventListener("click", this.handleClick.bind(this)); //add an event listener, so that the code knows to respond to a click
         document.addEventListener("keydown", this.handleKeyDown.bind(this)); //add an event listener, so that the code knows to respond to a key press 
         this.currentTileIndex; //number: the index in the tiles array corresponding to the tile the player is currently on
     }
@@ -153,32 +152,6 @@ class Board {
         }
     }
 
-    //this is the code that responds to the event when the mouse is clicked
-    handleClick(event){
-        if (!gameOver && event.x < 800 && event.y < 800){ //you can continue to click new squares if its not game over. You also can't click outside the grid (which is 800x800)
-            for(let i = 0; i < this.tiles.length; i++){
-                if(this.tiles[i].x >= (event.x-25) && this.tiles[i].x < (event.x) && this.tiles[i].y >= (event.y-25) && this.tiles[i].y < (event.y)){
-                    if((i == this.currentTileIndex - 1 && this.currentTileIndex%32!=0) || (i == this.currentTileIndex + 1 && this.currentTileIndex%32!=31) || i == this.currentTileIndex + 32 || i == this.currentTileIndex -32){  //these are the cases where you are able to click a tile. It makes it so that you can only click the tiles that are above, below, or to the left or right of the current tile
-                        this.tiles[i].visted = true;  //if the conditions are met, the tile gets visited
-                        this.currentTileIndex = i;  //the conditions of the if statement rely on the specification that i is the current tile you are on
-                        this.tiles.forEach(tile => tile.on = false);  //
-                        this.tiles[i].on = true;
-
-                        //Here, we will check if the tile we clicked is on the path we created. If it is NOT, we will add to our error Counter and increase the penalty for next time.
-                        if(!this.tiles[i].onPath){
-                            errorCounter += errorPenalty;
-                            errorPenalty *= 3;
-                        }
-                        //If we click on a tile that is on the path, we don't add any error points, and we set the error penalty to 1. 
-                        else {
-                            errorPenalty = 1;
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-    }
 
     //this is the code that responds to the event keyDown, which means the left right up and down keys are pressed
     handleKeyDown(event){ 
