@@ -78,9 +78,10 @@ class Board {
     // which of those values are assigned to be good and bad tiles 
     createTiles() {  
 
-        //Dear lyssa,  Inside the lines of stars ***, This is the block of code that decides the path of good tiles. You can replace it by commenting it all out. 
+        //Dear lyssa,  Inside the lines of stars ***, This is the block of code that decides the random path of good tiles. You can replace it by commenting it all out. 
         //All you need to do is make an array of good tiles called pathTileIndexes. It has all the numbers corresponding to the indexes which are good.
         //Make pathTileIndexes contain all the tiles that corresponds to the path you made on the led board. 
+        //For example, you might do this: var pathTileIndexes = [5, 37, 98, ... 1006]; (something like that but with the actual correct numbers from the led board)
 
         //************************************************************************************************************************************************
         //first is the start index. Its between 0 and 32 so the player can randomly start anywhere in the top row
