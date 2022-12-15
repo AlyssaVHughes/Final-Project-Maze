@@ -54,7 +54,6 @@ class Tile {  //start by creating a class for tile. Like a customized variable t
             rect(this.x, this.y, 20, 20);
         }
 
-
     }
 
 }
@@ -83,7 +82,17 @@ class Board {
         //Make pathTileIndexes contain all the tiles that corresponds to the path you made on the led board. 
         //For example, you might do this: var pathTileIndexes = [5, 37, 98, ... 1006]; (something like that but with the actual correct numbers from the led board)
 
-        var pathTileIndexes = [11, 43, 75, 107, 108, 140, 172, 173, 174, 175, 176, 208, 240, 241, 242, 274, 306, 305, 304, 303, 302, 301, 300, 299, 298, 266, 234, 202, 201, 200, 199, 198, 230, 262, 294, 293, 292, 324, 356, 357, 358, 359, 391, 392, 393, 394, 395, 427, 459, 491, 492, 493, 461, 462, 430, 431, 432, 433, 401, 402, 403, 371, 372, 373, 374, 406, 438, 470, 471, 503, 535, 534, 533, 532, 531, 530, 529, 528, 560, 592, 591, 590, 589, 588, 587, 586, 585, 584, 583, 551, 519, 487, 455, 454, 453, 452, 451, 450, 449, 481, 513, 545, 577, 609, 610, 611, 579, 547, 515, 516, 517, 549, 581, 613, 645, 677, 678, 679, 680, 681, 682, 714, 746, 747, 748, 716, 684, 652, 653, 654, 655, 656, 688, 720, 721, 722, 690, 658, 626, 627, 595, 596, 597, 598, 599, 600, 601, 602, 634, 666, 698, 697, 696, 695, 694, 693, 725, 757, 789, 788, 787, 786, 785, 784, 783, 782, 814, 813, 812, 811, 810, 809, 808, 807, 775, 743, 742, 741, 773, 805, 837, 836, 835, 867, 899, 931, 963, 964, 965, 933, 934, 935, 936, 937, 969, 970, 971, 972, 940, 908, 909, 910, 911, 912, 913, 914, 946, 978, 979, 980, 981, 982, 983, 1015]
+        var pathTileIndexes = [11, 43, 75, 107, 108, 140, 172, 173, 174, 175, 176, 208, 240, 241, 242, 274, 306, 305, 
+            304, 303, 302, 301, 300, 299, 298, 266, 234, 202, 201, 200, 199, 198, 230, 262, 294, 293, 292, 324, 356, 
+            357, 358, 359, 391, 392, 393, 394, 395, 427, 459, 491, 492, 493, 461, 462, 430, 431, 432, 433, 401, 402, 
+            403, 371, 372, 373, 374, 406, 438, 470, 471, 503, 535, 534, 533, 532, 531, 530, 529, 528, 560, 592, 591, 
+            590, 589, 588, 587, 586, 585, 584, 583, 551, 519, 487, 455, 454, 453, 452, 451, 450, 449, 481, 513, 545, 
+            577, 609, 610, 611, 579, 547, 515, 516, 517, 549, 581, 613, 645, 677, 678, 679, 680, 681, 682, 714, 746, 
+            747, 748, 716, 684, 652, 653, 654, 655, 656, 688, 720, 721, 722, 690, 658, 626, 627, 595, 596, 597, 598, 
+            599, 600, 601, 602, 634, 666, 698, 697, 696, 695, 694, 693, 725, 757, 789, 788, 787, 786, 785, 784, 783, 
+            782, 814, 813, 812, 811, 810, 809, 808, 807, 775, 743, 742, 741, 773, 805, 837, 836, 835, 867, 899, 931, 
+            963, 964, 965, 933, 934, 935, 936, 937, 969, 970, 971, 972, 940, 908, 909, 910, 911, 912, 913, 914, 946, 
+            978, 979, 980, 981, 982, 983, 1015]
         var start = 11
         //************************************************************************************************************************************************
         //first is the start index. Its between 0 and 32 so the player can randomly start anywhere in the top row
@@ -113,7 +122,7 @@ class Board {
 
         //    if(!pathTileIndexes.includes(choice)) pathTileIndexes.push(choice); //pushes the choice which is the ranomly calculated number to the array if its not already in the array
         //    pathTileIndex = choice; //Last, important to update the pathTileIndex so that the while loop works
-        }
+        //}
         //*************************************************************************************************************************************************
 
         //Now we'll create the actual tiles
@@ -160,7 +169,6 @@ class Board {
             gameOver = true; //when the error counter reaches 20 then the game over is true, which tells the code that you cannot play anymore
         }
     }
-
 
     //this is the code that responds to the event keyDown, which means the left right up and down keys are pressed
     handleKeyDown(event){ 
@@ -228,7 +236,6 @@ class Board {
     
             }
 
-
             else if (event.key === "Down" || event.key === "ArrowDown"){
                 //we can always move down as long as the game is not over
                 newTile = this.currentTileIndex + 32; //same thing as before, only adding 32 so that the new tile is directly below where it was before 
@@ -250,7 +257,6 @@ class Board {
     }
 }
 
-
 var board = new Board();
 var errorCounter = 0; //counter that when its >20, the player loses.
 var errorPenalty = 1; //penalty that gets worse if you make consecutive mistakes without returning to the path.
@@ -265,4 +271,3 @@ function draw() {
     board.drawTiles(); //repeatedly draw the tiles
     board.checkForLoss(); //repeatedly check for loss
 }
-
