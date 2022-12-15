@@ -4,7 +4,7 @@ class Tile {  //start by creating a class for tile. Like a customized variable t
     constructor (x, y, onPath, start, lastRow) {
         this.x = x; //x coordinate of tile
         this.y = y; //y coordinate of tile
-        this.lastRow = lastRow; //boolean: true if tile is in last row
+        this.lastRow = lastRow; //boolean: true if tile is in last row  (Boolean is true or false)
         this.onPath = onPath;   //boolean: true if tile is on the path
         this.visited = false;   //boolean: true if tile has been visisted by player yet
         this.start = start;     //boolean: true if tile is the start tile
@@ -89,7 +89,7 @@ class Board {
         //the stuff that happens in the below lines calculates some random tiles that touch each other and go to the last row. 
         //The .push pushes these tiles into the array above. 
         //So the numbers in the array become the tile indexes that are good.  
-        while(pathTileIndex < 992){ //stop whenever the last row is reached, not before!
+        while(pathTileIndex < 992){ //stop whenever the last row is reached, not before! the path goes all the way sown to the bottom row
             var choices = {up: null, left: null, right: null, down: null};
             if(pathTileIndex > 31) choices.up = pathTileIndex-32;
             if(pathTileIndex%32 != 0) choices.left = pathTileIndex-1;
