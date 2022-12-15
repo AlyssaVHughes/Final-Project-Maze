@@ -15,7 +15,7 @@ class Tile {  //start by creating a class for tile. Like a customized variable t
     tileDraw () {
 
         //On the tile, and its correct
-        if(this.on && this.onPath){
+        if(this.on && this.onPath && !this.lastRow){
             fill('rgb(0,255,0)'); 
             rect(this.x, this.y, 20, 20);  //if the current tile is a tile on the correct path, the rectangle will become green
         }
