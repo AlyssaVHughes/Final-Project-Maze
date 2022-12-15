@@ -54,7 +54,6 @@ class Tile {  //start by creating a class for tile. Like a customized variable t
             rect(this.x, this.y, 20, 20);
         }
 
-
     }
 
 }
@@ -83,35 +82,47 @@ class Board {
         //Make pathTileIndexes contain all the tiles that corresponds to the path you made on the led board. 
         //For example, you might do this: var pathTileIndexes = [5, 37, 98, ... 1006]; (something like that but with the actual correct numbers from the led board)
 
+        var pathTileIndexes = [11, 43, 75, 107, 108, 140, 172, 173, 174, 175, 176, 208, 240, 241, 242, 274, 306, 305, 
+            304, 303, 302, 301, 300, 299, 298, 266, 234, 202, 201, 200, 199, 198, 230, 262, 294, 293, 292, 324, 356, 
+            357, 358, 359, 391, 392, 393, 394, 395, 427, 459, 491, 492, 493, 461, 462, 430, 431, 432, 433, 401, 402, 
+            403, 371, 372, 373, 374, 406, 438, 470, 471, 503, 535, 534, 533, 532, 531, 530, 529, 528, 560, 592, 591, 
+            590, 589, 588, 587, 586, 585, 584, 583, 551, 519, 487, 455, 454, 453, 452, 451, 450, 449, 481, 513, 545, 
+            577, 609, 610, 611, 579, 547, 515, 516, 517, 549, 581, 613, 645, 677, 678, 679, 680, 681, 682, 714, 746, 
+            747, 748, 716, 684, 652, 653, 654, 655, 656, 688, 720, 721, 722, 690, 658, 626, 627, 595, 596, 597, 598, 
+            599, 600, 601, 602, 634, 666, 698, 697, 696, 695, 694, 693, 725, 757, 789, 788, 787, 786, 785, 784, 783, 
+            782, 814, 813, 812, 811, 810, 809, 808, 807, 775, 743, 742, 741, 773, 805, 837, 836, 835, 867, 899, 931, 
+            963, 964, 965, 933, 934, 935, 936, 937, 969, 970, 971, 972, 940, 908, 909, 910, 911, 912, 913, 914, 946, 
+            978, 979, 980, 981, 982, 983, 1015]
+        var start = 11
         //************************************************************************************************************************************************
         //first is the start index. Its between 0 and 32 so the player can randomly start anywhere in the top row
-        let start = Math.floor(Math.random()*32);  //this part calculates a random number between 0 and 32 to set as the start tile
+        //let start = Math.floor(Math.random()*32);  //this part calculates a random number between 0 and 32 to set as the start tile
 
         //We need to make a list of indexes, such that each tile at those indexes are "on the path"
-        let pathTileIndex = start;  //the starting block is always in the path, so the first pathTileIndex is set equal to start 
-        let pathTileIndexes = []; //this is the array of tiles that will consist of all of the correct tiles in the path.
-        pathTileIndexes.push(pathTileIndex);  
+        //let pathTileIndex = start;  //the starting block is always in the path, so the first pathTileIndex is set equal to start 
+        //let pathTileIndexes = []; //this is the array of tiles that will consist of all of the correct tiles in the path.
+        //pathTileIndexes.push(pathTileIndex);  
 
         //the stuff that happens in the below lines calculates some random tiles that touch each other and go to the last row. 
         //The .push pushes these tiles into the array above. 
         //So the numbers in the array become the tile indexes that are good.  
-        while(pathTileIndex < 992){ //stop whenever the last row is reached, not before!
-            var choices = {up: null, left: null, right: null, down: null};
-            if(pathTileIndex > 31) choices.up = pathTileIndex-32;
-            if(pathTileIndex%32 != 0) choices.left = pathTileIndex-1;
-            if(pathTileIndex%32 != 31) choices.right = pathTileIndex+1;
-            choices.down = pathTileIndex+32;
-            var choice; //^ all of this code is what creates an array of random numbers that correspond to the tiles that are part of the good path
+        //while(pathTileIndex < 992){ //stop whenever the last row is reached, not before!
+        //    var choices = {up: null, left: null, right: null, down: null};
+        //    if(pathTileIndex > 31) choices.up = pathTileIndex-32;
+        //    if(pathTileIndex%32 != 0) choices.left = pathTileIndex-1;
+        //    if(pathTileIndex%32 != 31) choices.right = pathTileIndex+1;
+        //    choices.down = pathTileIndex+32;
+        //    var choice; //^ all of this code is what creates an array of random numbers that correspond to the tiles that are part of the good path
 
-            var dieRoll = Math.floor(Math.random()*20);  //this is the code that created the random path and makes sure all of the tiles on the path are next to each other
-            if(dieRoll < 3 && choices.up != null) choice = choices.up;
-            else if(dieRoll < 9 && choices.left != null) choice = choices.left;
-            else if(dieRoll < 15 && choices.right != null) choice = choices.right;
-            else choice = choices.down;
+        //    var dieRoll = Math.floor(Math.random()*20);  //this is the code that created the random path and makes sure all of the tiles on the path are next to each other
+        //    if(dieRoll < 3 && choices.up != null) choice = choices.up;
+        //    else if(dieRoll < 9 && choices.left != null) choice = choices.left;
+        //    else if(dieRoll < 15 && choices.right != null) choice = choices.right;
+        //    else choice = choices.down;
 
-            if(!pathTileIndexes.includes(choice)) pathTileIndexes.push(choice); //pushes the choice which is the ranomly calculated number to the array if its not already in the array
-            pathTileIndex = choice; //Last, important to update the pathTileIndex so that the while loop works
-        }
+        //    if(!pathTileIndexes.includes(choice)) pathTileIndexes.push(choice); //pushes the choice which is the ranomly calculated number to the array if its not already in the array
+        //    pathTileIndex = choice; //Last, important to update the pathTileIndex so that the while loop works
+        //}
         //*************************************************************************************************************************************************
 
         //Now we'll create the actual tiles
@@ -158,7 +169,6 @@ class Board {
             gameOver = true; //when the error counter reaches 20 then the game over is true, which tells the code that you cannot play anymore
         }
     }
-
 
     //this is the code that responds to the event keyDown, which means the left right up and down keys are pressed
     handleKeyDown(event){ 
@@ -226,7 +236,6 @@ class Board {
     
             }
 
-
             else if (event.key === "Down" || event.key === "ArrowDown"){
                 //we can always move down as long as the game is not over
                 newTile = this.currentTileIndex + 32; //same thing as before, only adding 32 so that the new tile is directly below where it was before 
@@ -247,7 +256,6 @@ class Board {
         }   
     }
 }
-
 
 var board = new Board();
 var errorCounter = 0; //counter that when its >20, the player loses.
