@@ -78,6 +78,11 @@ class Board {
     // which of those values are assigned to be good and bad tiles 
     createTiles() {  
 
+        //Dear lyssa,  Inside the lines of stars ***, This is the block of code that decides the path of good tiles. You can replace it by commenting it all out. 
+        //All you need to do is make an array of good tiles called pathTileIndexes. It has all the numbers corresponding to the indexes which are good.
+        //Make pathTileIndexes contain all the tiles that corresponds to the path you made on the led board. 
+
+        //************************************************************************************************************************************************
         //first is the start index. Its between 0 and 32 so the player can randomly start anywhere in the top row
         let start = Math.floor(Math.random()*32);  //this part calculates a random number between 0 and 32 to set as the start tile
 
@@ -106,6 +111,7 @@ class Board {
             if(!pathTileIndexes.includes(choice)) pathTileIndexes.push(choice); //pushes the choice which is the ranomly calculated number to the array if its not already in the array
             pathTileIndex = choice; //Last, important to update the pathTileIndex so that the while loop works
         }
+        //*************************************************************************************************************************************************
 
         //Now we'll create the actual tiles
 
